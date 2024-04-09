@@ -1,0 +1,736 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Audio Generation with Latent Diffusion Models</title>
+        <link rel="shortcut icon" href="img/lab.ico">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1"><!--针对移动浏览器的视口标签-->
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/swiper.min.css">
+        <link rel="stylesheet" href="js/leaflet/leaflet.css" />
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+			  var hm = document.createElement("script");
+			  hm.src = "https://hm.baidu.com/hm.js?b616d8cf53eebcf608b2577985a27371";
+			  var s = document.getElementsByTagName("script")[0]; 
+			  s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
+
+    </head>
+    <body data-spy="scroll" data-target=".navbar">
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <header role="banner">
+            <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="MagicGIS'" width="145"></a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#index-content-banner">
+                                <span class="icon fa fa-home"></span> Homepage
+                            </a></li>
+                            <li><a href="#index-content-case">
+                                <span class="icon fa fa-desktop"></span> Project
+                            </a></li>
+                            <li><a href="#index-content-project">
+                                <span class="icon fa fa-sitemap"></span> Article
+                            </a></li>
+                            <li><a href="#index-content-share">
+                                <span class="icon fa fa-tasks"></span> Demo
+                            </a></li>
+                            <li><a href="#index-content-contract">
+                                <span class="icon fa fa-envelope"></span> Contact Us
+                            </a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Link <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="https://github.com/FraudHuohuan" target="_blank">
+                                        <span class="fa fa-github"></span>  Github</a></li>
+                                    <li><a href="about.html" target="_blank">
+                                        <span class="fa fa-podcast"></span>  Resume</a></li>
+                                </ul>
+                            </li>
+                    </div><!--/.nav-collapse -->
+                </div><!--/.container -->
+            </nav>
+        </header>
+
+        <main role="main">
+            <!--传送带-->
+            <div id="index-content-banner">
+                <div id="homepage-feature" class="carousel slide"  data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#homepage-feature" data-slide-to="0" class="active"></li>
+                        <li data-target="#homepage-feature" data-slide-to="1"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img id="slogan0-img" src="img/carousel/slogan0.jpg">
+                            <video id="slogan0-video" preload="auto" autoplay="autoplay" loop="loop" poster="img/carousel/slogan0.jpg">
+                                <source type="video/mp4" src="img/carousel/slogan0.mp4">
+                            </video>
+                            <a class="carousel-mask"></a>
+                            <div class="swiper-content carousel-caption">
+                                <h1 class="title">AudioLDM</h1>
+                                <h3 class="subtitle"> Text-to-Audio Generation with Latent Diffusion Models</h3>
+								<a class="btn btn-primary" href="https://ieeexplore.ieee.org/abstract/document/10405964" target="_blank">[Paper on ArXiv]</a>
+								<a class="btn btn-primary" href="https://audioldm.github.io/" target="_blank">[Code on GitHub] </a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="img/carousel/slogan1.jpg">
+                            <div id="slogan1" class="swiper-content carousel-caption">
+                                <h1 class="title">Large Language Models</h1>
+                                <h1 class="subtitle">Advanced natural language processing models</h1>
+                                <a href="project.html" target="_blank"><button class="btn btn-success">Project Presentation</button></a>
+                            </div>
+                        </div>
+                    </div><!-- /.carousel-inner -->
+
+                    <a class="left carousel-control" href="#homepage-feature" data-slide="prev">
+                        <span class="icon fa fa-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#homepage-feature" data-slide="next">
+                        <span class="icon fa fa-chevron-right"></span>
+                    </a>
+                </div><!-- /#homepage-feature.carousel -->
+            </div>
+
+            <!--简介-->
+            <div class="threebox">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="threeitemdetail">
+                            <div style="text-align: center; height:62px; width:100%;">
+                                <img src="img/newindex/online.png" style="width:68px;">
+                            </div>
+                            <div class="content1">TTA</div>
+                            <div class="content2">Text-to-audio (TTA) system has recently gained attention for its ability to synthesize general audio based on text descriptions. </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" style="border-left:1px solid #e2e2e2;border-right:1px solid #e2e2e2;">
+                        <div class="threeitemdetail">
+                            <div style="text-align: center; height:62px; width:100%;">
+                                <img src="img/newindex/dataservice.png" style="width:68px;">
+                            </div>
+                            <div class="content1">CLAP</div>
+                            <div class="content2">he pretrained CLAP models enable us to train latent diffusion models (LDMs) with audio embedding while providing text embedding as a condition during sampling. </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" style="border-right:1px solid #e2e2e2;">
+                        <div class="threeitemdetail">
+                            <div style="text-align: center; height:62px; width:100%;">
+                                <img src="img/newindex/cloud.png" style="width:68px;">
+                            </div>
+                            <div class="content1">AudioLDM</div>
+                            <div class="content2">Trained on AudioCaps with a single GPU, AudioLDM achieves state-of-the-art TTA performance measured by both objective and subjective metrics (e.g., frechet distance). 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="threeitemdetail">
+                            <div style="text-align: center; height:62px; width:100%;">
+                                <img src="img/newindex/API.png" style="width:68px;">
+                            </div>
+                            <div class="content1">zero-shot</div>
+                            <div class="content2">. Moreover, AudioLDM is the first TTA system that enables various text-guided audio manipulations (e.g., style transfer) in a zero-shot fashion.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--项目-->
+            <div id="index-content-case">
+                <div class="solutiontext1">
+                    <span>项目 - 分享地理价值</span>
+                </div>
+                <ul class="case-content">
+                    <li class="case-item">
+                        <div class="case-img" id="property"></div><!--背景图-->
+                        <div class="mask"><!--覆盖Div-->
+                            <div class="bg other-bg"></div><!--绿色背景-->
+                            <div class="content"><!--覆盖内容-->
+                                <div class="item-img-panel"><!--覆盖图标-->
+                                    <img src="img/newindex/house@2x.png" alt="" class="item-img"><!--正常显示图标-->
+                                    <img src="img/newindex/house@2x.png" alt="" class="item-img-hover"><!--hover显示图标-->
+                                </div>
+                                <h3 class="item-title">分布式敏捷开发系统架构</h3><!--覆盖标题-->
+                                <p class="item-desc">基于SpringMVC+Mybatis分布式敏捷开发系统架构，提供公共微服务模块，J2EE企业级开发解决方案。</p>
+                                <a class="btn btn-primary-o item-link" href="http://47.92.7.213:8080/pis-upms-server/sso/login?backurl=http%3A%2F%2F47.92.7.213:8080%2Fpis-upms-server%2Fmanage%2Findex" target="_blank">查看详情</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="case-item">
+                        <div class="case-img" id="retail"></div>
+                        <div class="mask">
+                            <div class="bg other-bg"></div>
+                            <div class="content">
+                                <div class="item-img-panel">
+                                    <img src="img/newindex/sale@2x.png" alt="" class="item-img">
+                                    <img src="img/newindex/sale@2x.png" alt="" class="item-img-hover">
+                                </div>
+                                <h3 class="item-title">GIS数字平台</h3>
+                                <p class="item-desc">基于 WebAppBuilder 修改的 noportal 数字平台，包含基本 GIS 功能、统计图、标绘编辑、导航、全景图、轨迹回放等。</p>
+                                <a class="btn btn-primary-o item-link" href="http://47.92.7.213:8080/PISGIS/index.html" target="_blank">查看详情</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="case-item">
+                        <div class="case-img" id="wisdom-city"></div>
+                        <div class="mask">
+                            <div class="bg other-bg"></div>
+                            <div class="content">
+                                <div class="item-img-panel">
+                                    <img src="img/newindex/smartcity@2x.png" alt="" class="item-img">
+                                    <img src="img/newindex/smartcity@2x.png" alt="" class="item-img-hover">
+                                </div>
+                                <h3 class="item-title">智慧GIS论坛</h3>
+                                <p class="item-desc">Node Club 是基于 Node.js 和 MongoDB 的开源社区，MagicGIS 是基于 Node Club 的 GIS 中文技术社区。</p>
+                                <a class="btn btn-primary-o item-link" href="http://47.92.7.213:3000" target="_blank">查看详情</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <!--GIS实例-->
+            <section id="project">
+                <div class="project-info">
+                    <h1>GIS实例</h1>
+                    <h3>ArcGIS API for JavaScript 开发示例</h3>
+                    <h3>一个简单的GIS系统</h3>
+                    <a href="http://47.92.7.213:8080/GISDemo/index.html" target="_blank">
+                        <button class="view-more">点击进入</button>
+                    </a>
+                </div>
+            </section>
+
+            <!--作品区-->
+            <div id="index-content-project">
+                <div class="solutiontext1">
+                    <span>作品 - 无处不在，随处精彩</span>
+                </div>
+                <!--作品图标-->
+                <div class="Process col-xs-12">
+                    <ul>
+                        <li>
+                            <div>
+                                <i class="fa fa-history"></i><br>
+                                <b>Research</b>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <i class="fa fa-puzzle-piece"></i><br>
+                                <b>Plan</b>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <i class="fa fa-database"></i><br>
+                                <b>Develop</b>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <i class="fa fa-magic"></i><br>
+                                <b>Integration</b>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <figure class="col-sm-4">
+                        <img src="img/figure/1.jpg">
+                        <figcaption>
+                            <h3>轻博客</h3>
+                            <p>基于Bootstrap、JSP和Servelet的博客系统
+                                <br>
+                                <a href="http://47.92.7.213:8080/blog/index.html" target="_blank"> 在线演示</a>
+                            </p>
+                        </figcaption>
+                    </figure>
+                    <figure class="col-sm-4">
+                        <img src="img/figure/2.jpg">
+                        <figcaption>
+                            <h3>简单工作流系统</h3>
+                            <p>疯狂系列，没有使用工作流引擎
+                                <br>
+                                <a href="http://47.92.7.213:8080/HRSystem/index.jsp" target="_blank"> 在线演示</a>
+                            </p>
+                        </figcaption>
+                    </figure>
+                    <figure class="col-sm-4">
+                        <img src="img/figure/3.jpg">
+                        <figcaption>
+                            <h3>新闻发布系统</h3>
+                            <p>入门级，目前丑到惨不忍睹（躺
+                                <br>
+                                <a href="http://47.92.7.213:8080/NewsSystem/index.jsp" target="_blank"> 在线演示</a>
+                            </p>
+                        </figcaption>
+                    </figure>
+                    <figure class="col-sm-4">
+                        <img src="img/figure/4.jpg">
+                        <figcaption>
+                            <h3>人事管理系统</h3>
+                            <p>基于Spring MVC + MyBatis的人事管理系统
+                                <br>
+                                <a href=http://47.92.7.213:8080/HRApp/index.jsp" target="_blank"> 在线演示</a>
+                            </p>
+                        </figcaption>
+                    </figure>
+                    <figure class="col-sm-4">
+                        <img src="img/figure/5.jpg">
+                        <figcaption>
+                            <h3>电子商城系统</h3>
+                            <p>基于Struts + Spring + Hibernate + MyBatis +EasyUI 技术开发的电子商城系统
+                                <br>
+                                <a href="http://47.92.7.213:8080/digital-fp/list" target="_blank"> 在线演示</a>
+                            </p>
+                        </figcaption>
+                    </figure>
+                    <figure class="col-sm-4">
+                        <img src="img/figure/6.jpg">
+                        <figcaption>
+                            <h3>N博客</h3>
+                            <p>基于Node.js+MongoDB+Express（一起学Node.js案例）
+                                <br>
+                                <a href="http://47.92.7.213:3001" target="_blank"> 在线演示</a>
+                            </p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!--Demo区-->
+            <div id="index-content-share" class="index-content">
+                <div class="solutiontext1">
+                    <span>Demo - Audio Processing Showcase</span>
+                </div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <ul class="audiolist">
+                                <li class="audio">
+                                    <div class="audio_wrap">
+                                        <a class="audio_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/music.jpg);">
+                                            <div class="audio_hover">
+                                                <div class="audio_play"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to listen</span></div>
+                                        </a>
+                                        <div class="audio_info">
+                                            <div class="audio_name">Sample Audio File</div>
+                                            <div class="audio_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">yhz</span></div>
+                                                <div class="audio_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2024.04.08</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+				<li class="audio">
+                                    <div class="audio_wrap">
+                                        <a class="audio_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/music.jpg);">
+                                            <div class="audio_hover">
+                                                <div class="audio_play"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to listen</span></div>
+                                        </a>
+                                        <div class="audio_info">
+                                            <div class="audio_name">Sample Audio File</div>
+                                            <div class="audio_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">yhz</span></div>
+                                                <div class="audio_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2024.04.08</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+				<li class="audio">
+                                    <div class="audio_wrap">
+                                        <a class="audio_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/music.jpg);">
+                                            <div class="audio_hover">
+                                                <div class="audio_play"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to listen</span></div>
+                                        </a>
+                                        <div class="audio_info">
+                                            <div class="audio_name">Sample Audio File</div>
+                                            <div class="audio_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">yhz</span></div>
+                                                <div class="audio_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2024.04.08</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+				<li class="audio">
+                                    <div class="audio_wrap">
+                                        <a class="audio_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/music.jpg);">
+                                            <div class="audio_hover">
+                                                <div class="audio_play"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to listen</span></div>
+                                        </a>
+                                        <div class="audio_info">
+                                            <div class="audio_name">Sample Audio File</div>
+                                            <div class="audio_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">yhz</span></div>
+                                                <div class="audio_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2024.04.08</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+				<li class="audio">
+                                    <div class="audio_wrap">
+                                        <a class="audio_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/music.jpg);">
+                                            <div class="audio_hover">
+                                                <div class="audio_play"><img src="img/figure/music.png">
+                                                </div>
+                                                <span>Click to listen</span></div>
+                                        </a>
+                                        <div class="audio_info">
+                                            <div class="audio_name">Sample Audio File</div>
+                                            <div class="audio_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">yhz</span></div>
+                                                <div class="audio_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2024.04.08</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+				<li class="audio">
+                                    <div class="audio_wrap">
+                                        <a class="audio_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/music.jpg);">
+                                            <div class="audio_hover">
+                                                <div class="audio_play"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to listen</span></div>
+                                        </a>
+                                        <div class="audio_info">
+                                            <div class="audio_name">Sample Audio File</div>
+                                            <div class="audio_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">yhz</span></div>
+                                                <div class="audio_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2024.04.08</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>   
+                         </ul>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <ul class="maplist">
+                                <li class="map">
+                                    <div class="map_wrap">
+                                        <a class="map_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/quot2.png);">
+                                            <div class="map_hover">
+                                                <div class="map_magnifier"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to view</span></div>
+                                        </a>
+                                        <div class="map_info">
+                                            <div class="map_name">大型超市分布格网图</div>
+                                            <div class="map_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">xujie</span></div>
+                                                <div class="map_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2017.04.20</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="map">
+                                    <div class="map_wrap">
+                                        <a class="map_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/quot2.png);">
+                                            <div class="map_hover">
+                                                <div class="map_magnifier"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to view</span></div>
+                                        </a>
+                                        <div class="map_info">
+                                            <div class="map_name">大型超市分布格网图</div>
+                                            <div class="map_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">xujie</span></div>
+                                                <div class="map_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2017.04.20</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="map">
+                                    <div class="map_wrap">
+                                        <a class="map_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/quot2.png);">
+                                            <div class="map_hover">
+                                                <div class="map_magnifier"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to view</span></div>
+                                        </a>
+                                        <div class="map_info">
+                                            <div class="map_name">大型超市分布格网图</div>
+                                            <div class="map_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">xujie</span></div>
+                                                <div class="map_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2017.04.20</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="map">
+                                    <div class="map_wrap">
+                                        <a class="map_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/quot2.png);">
+                                            <div class="map_hover">
+                                                <div class="map_magnifier"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to view</span></div>
+                                        </a>
+                                        <div class="map_info">
+                                            <div class="map_name">大型超市分布格网图</div>
+                                            <div class="map_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">xujie</span></div>
+                                                <div class="map_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2017.04.20</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="map">
+                                    <div class="map_wrap">
+                                        <a class="map_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/quot2.png);">
+                                            <div class="map_hover">
+                                                <div class="map_magnifier"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to view</span></div>
+                                        </a>
+                                        <div class="map_info">
+                                            <div class="map_name">大型超市分布格网图</div>
+                                            <div class="map_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">xujie</span></div>
+                                                <div class="map_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2017.04.20</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="map">
+                                    <div class="map_wrap">
+                                        <a class="map_bg" target="_blank"
+                                           href="#"  data-toggle="modal" data-target="#myModal"
+                                           style="background-image: url(img/figure/quot2.png);">
+                                            <div class="map_hover">
+                                                <div class="map_magnifier"><img src="img/figure/magnifier.png">
+                                                </div>
+                                                <span>Click to view</span></div>
+                                        </a>
+                                        <div class="map_info">
+                                            <div class="map_name">大型超市分布格网图</div>
+                                            <div class="map_detail">
+                                                <div class="pull-left"><span
+                                                        class="icon fa fa-user-circle fa-lg"></span><span
+                                                        class="map_icontxt">xujie</span></div>
+                                                <div class="map_time pull-right"><span
+                                                        class="icon fa fa-clock-o fa-lg"></span><span
+                                                        class="map_icontxt">2017.04.20</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+
+            <!--联系方式-->
+            <div id="index-content-contract">
+                <div id="allmap"></div>
+                <div class="connect-us">
+                    <div class="col-md-9">
+                        <div class="connect-us-box">
+                            <div class="connect-a col-md-3 col-sm-6">Contact Us</div>
+                            <div class="connect-a col-md-3 col-sm-6">Phone: 15210934718</div>
+                            <div class="connect-a col-md-3 col-sm-6">E-mail: 108656479@qq.com</div>
+                            <div class="connect-a col-md-3 col-sm-6">Github：<a style="color: white" target="_blank" href="https://github.com/FraudHuohuan">@FraudHuohuan</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div><img style="margin:10px; width:80px;" class="" src="img/newindex/wechatQR.png"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer role="contentinfo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-md-2">
+                        <h3>项目作品</h3>
+                        <ul>
+                            <li><a href="https://audioldm.github.io/" target="_blank">AudioLDM</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <h3>Demo</h3>
+                        <ul>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">UESTC</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">UEST</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">UES</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">UE</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">U</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-2">
+                        <h3>Others</h3>
+                        <ul>
+                            <li><a href="https://github.com/FraudHuohuan" target="_blank">Github</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">CSDN</a></li>
+                            <li><a href="./about.html" target="_blank">Resume</a></li>
+                            <li><a href="./project.html" target="_blank">Project</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Add the extrafix for only the required viewport -->
+                    <div class="clearfix visible-sm"></div>
+                    <div class="about col-sm-12 col-md-6">
+                        <h3>About</h3>
+                        <p>Hello, I am Yihaozhe, a student of the International Class at the University of Electronic Science and Technology, Class of 2021.
+                            <br />All materials are sourced from the internet and open-source projects, provided solely for technical exchange purposes.</p>
+                        <p><a class="btn btn-default btn-xs pull-right" href="http://www.magicgis.cn/about.html" target="_blank">Learn more <span class="fa fa-arrow-circle-right"></span></a></p>
+                    </div>
+                </div><!-- /.row -->
+
+                <ul class="social">
+                    <li><a  title="Weibo"><span class="icon fa fa-weibo"></span></a></li>
+                    <li><a  title="WeChat"><span class="icon fa fa-weixin"></span></a></li>
+                    <li><a href="https://github.com/FraudHuohuan" target="_blank" title="Github"><span class="icon fa fa-github"></span></a></li>
+                    <li>
+                        <a class="fa-stack" title="Zhihu" target="_blank" href="http://zhihu.esrichina.com.cn/">
+                            <i class="fa  fa-stack-1x">知</i>
+                        </a>
+                    </li>
+                </ul>
+
+                <p class="footer-brand"><a href="index.html"><img src="img/logo1.png" width="140" alt="Bootstrappin'"></a></p>
+				<p class="text-center">Website Filing</p>
+            </div><!-- /.container -->
+        </footer>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Tips</h4>
+                    </div>
+                    <div class="modal-body">
+                        小拳拳锤你胸口，(｡•ˇ‸ˇ•｡)哼！不给你看。(=ﾟωﾟ)ﾉ
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.1.1.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/swiper.min.js"></script>
+        <script src="js/leaflet/leaflet.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=oMvdENGYZmsGBZlo8MFffrQb"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+        <script>
+            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+            ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
+        </script>
+        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+    </body>
+</html>
