@@ -1,4 +1,37 @@
 /**************************展示页面样式******************************/
+/* 上传语音和录音按钮样式 */
+.input-audio {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* 垂直居中 */
+}
+
+.input-audio label,
+.input-audio button,
+.record-time {
+    padding: 8px 12px; /* 缩小按钮的内边距 */
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    margin-right: 10px;
+    font-size: 0.9em; /* 缩小字体大小 */
+    white-space: nowrap; /* 防止自动换行 */
+}
+
+.input-audio label:hover,
+.input-audio button:hover,
+.record-time:hover {
+    background-color: #0056b3;
+}
+
+.record-time {
+    margin-left: auto; /* 将 recordTime 按钮推到右侧 */
+}
+
+
 .industry-banner {
     width: 100%;
     padding: 0px;

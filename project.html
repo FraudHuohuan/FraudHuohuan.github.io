@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>恋恋尘风の实验室</title>
+        <title>Audio Processing</title>
         <link rel="shortcut icon" href="img/lab.ico">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1"><!--针对移动浏览器的视口标签-->
@@ -38,28 +38,27 @@
         <main role="main">
             <div class="industry-banner">
                 <div class="titles">
-                    <div class="title">项目展示</div>
-                    <div class="sub-title">提供最专业的行业解决方案</div>
+                    <div class="title">Audio Processing</div>
+                    <div class="sub-title">Offering various audio processing features</div>
                 </div>
             </div>
-
             <div class="industry-body">
                 <div class="industry-content" id="pipelinegis">
                     <div class="case-wrapper">
                         <div class="case-text">
-                            <div class="title"><img src="img/project/case2.png" class="case-icon">中国石油管道地理信息系统
+                            <div class="title"><img src="img/project/case2.png" class="case-icon">Audio Recognition
                             </div>
-                            <div class="desc">该项目是中国石油基于 GIS 为长输管道管理提供强有力的地图支持及可视化工具，包括图文查询、空间分析、统计图、打印报表、全景地图等丰富的功能。采用 responsive UI 跨平台设计，运用 ArcGIS API for JavaScript、Dojo、jQuery、JavaScript、HTML、CSS、Bootstrap、Echart、three.js、APDM 等技术。</div>
-                            <ol class="feature">
-                                <li>
-                                    <div class="icon"><i class="fa fa-check"></i></div>
-                                    <div class="text">主持整个系统的开发，负责该系统的架构及核心模块的开发工作；深度修改 Web AppBuilder forArcGIS 框架去掉依赖的 Portal，负责前台页面的响应式设计及 JavaScript 用户交互；使用 Apache CXF和 CORS 解决系统调用后台数据的跨域难题。</div>
-                                </li>
-                                <li>
-                                    <div class="icon"><i class="fa fa-check"></i></div>
-                                    <div class="text">开发工具：WebStorm、Web AppBuilder for ArcGIS、MyEclipse、Oracle、SVN。</div>
-                                </li>
-                            </ol>
+			    <div class="input-audio">
+    				<label for="audioInput">Upload Audio</label>
+    				<input type="file" accept="audio/*" id="audioInput" style="display: none;">
+    				<button id="recordButton" type="button">Record Audio</button>			 
+    				<span id="recordTime"></span>
+            		    </div>
+			    <div class="input-audio">
+    				<button id="submitButton" type="button" disabled>Submit</button>
+				<audio id="audio" controls style="display: none;"></audio> 
+            		    </div>
+                            <div class="desc">The Whisper model is a neural network model designed for speech enhancement. It aims to improve the quality of speech signals, particularly in noisy environments. Leveraging deep learning techniques, the model works by learning the relationship between input speech signals and target speech signals for enhancement. </div>
                         </div>
                         <div class="case-image" index="pipelinegis">
                             <div class="browser">
@@ -321,6 +320,7 @@
         <script src="js/main.js"></script>
         <script src="js/swiper.min.js"></script>
         <script src="js/leaflet/leaflet.js"></script>
+	<script src="js/audio.js"></script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=oMvdENGYZmsGBZlo8MFffrQb"></script>
 
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
