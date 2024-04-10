@@ -31,6 +31,29 @@
     margin-left: auto; /* 将 recordTime 按钮推到右侧 */
 }
 
+.speech-recognition-result {
+    margin-top: 20px; /* 设置上边距 */
+    height: 100%; /* 设置高度为父容器的100% */
+}
+
+#transcriptText {
+    width: 100%; /* 设置宽度为父容器的100% */
+    height: 100%; /* 设置高度为父容器的100% */
+    padding: 10px; /* 设置内边距 */
+    border: 1px solid #ccc; /* 设置边框 */
+    border-radius: 5px; /* 设置圆角边框 */
+    resize: vertical; /* 允许垂直调整大小 */
+    overflow-y: auto; /* 当内容溢出时显示垂直滚动条 */
+    font-size: 14px; /* 设置字体大小 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    color: #333; /* 设置字体颜色 */
+    background-color: #f9f9f9; /* 设置背景颜色 */
+}
+
+#transcriptText.loading {
+    color: #ccc; /* 将加载时的文本颜色设为灰色 */
+}
+
 
 .industry-banner {
     width: 100%;

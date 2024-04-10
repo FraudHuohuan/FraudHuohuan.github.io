@@ -17,15 +17,6 @@
         <link rel="stylesheet" href="css/swiper.min.css">
         <link rel="stylesheet" href="js/leaflet/leaflet.css" />
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-		<script>
-			var _hmt = _hmt || [];
-			(function() {
-			  var hm = document.createElement("script");
-			  hm.src = "https://hm.baidu.com/hm.js?b616d8cf53eebcf608b2577985a27371";
-			  var s = document.getElementsByTagName("script")[0]; 
-			  s.parentNode.insertBefore(hm, s);
-			})();
-		</script>
 
     </head>
     <body data-spy="scroll" style="margin-top: -50px;">
@@ -59,6 +50,9 @@
 				<audio id="audio" controls style="display: none;"></audio> 
             		    </div>
                             <div class="desc">The Whisper model is a neural network model designed for speech enhancement. It aims to improve the quality of speech signals, particularly in noisy environments. Leveraging deep learning techniques, the model works by learning the relationship between input speech signals and target speech signals for enhancement. </div>
+			    <div class="speech-recognition-result">
+                        	<textarea id="transcriptText" rows="4" cols="50" placeholder="Speech recognition result will appear here" readonly></textarea>
+           		    </div>
                         </div>
                         <div class="case-image" index="pipelinegis">
                             <div class="browser">
