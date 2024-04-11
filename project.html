@@ -46,10 +46,10 @@
     				<span id="recordTime"></span>
             		    </div>
 			    <div class="input-audio">
-    				<button id="submitButton" type="button" disabled>Submit</button>
+    				<button id="Recognize" type="button" disabled>Recognize</button>
 				<audio id="audio" controls style="display: none;"></audio> 
             		    </div>
-                            <div class="desc">The Whisper model is a neural network model designed for speech enhancement. It aims to improve the quality of speech signals, particularly in noisy environments. Leveraging deep learning techniques, the model works by learning the relationship between input speech signals and target speech signals for enhancement. </div>
+                            <div class="desc">Whisper is a Transformer based encoder-decoder model, also referred to as a sequence-to-sequence model. It was trained on 1 million hours of weakly labeled audio and 4 million hours of pseudolabeled audio collected using Whisper large-v2.The models were trained on either English-only data or multilingual data. The English-only models were trained on the task of speech recognition. The multilingual models were trained on both speech recognition and speech translation.</div>
 			    <div class="speech-recognition-result">
                         	<textarea id="transcriptText" rows="4" cols="50" placeholder="Speech recognition result will appear here" readonly></textarea>
            		    </div>
@@ -74,21 +74,23 @@
                 <div class="industry-content inverse" id="pipeline">
                     <div class="case-wrapper">
                         <div class="case-text">
-                            <div class="title"><img src="img/project/case1.png" class="case-icon">中国石油管道完整性管理系统</div>
-                            <div class="desc">该项目是中国石油为管道企业量身打造的大型管道完整性管理系统，实现管道数据集中管理和业务流程信息化。采用 Java 开发，运用 Struts2、Spring、ExtJs、JavaScript、HTML、CSS、XFire、Workflow工作流引擎、APDM 数据模型和 ArcGIS 服务对象扩展(SOE)等技术。
+                            <div class="title"><img src="img/project/case1.png" class="case-icon">sepformer-whamr-enhancement </div>
+			    <div class="input-audio">
+    				<label for="audioInput1">Upload Audio</label>
+    				<input type="file" accept="audio/*" id="audioInput1" style="display: none;">
+    				<button id="recordButton1" type="button">Record Audio</button>			 
+    				<span id="recordTime1"></span>
+            		    </div>
+			    <div class="input-audio">
+    				<button id="Enhance" type="button" disabled>Ehance</button>
+				<audio id="audio1" controls style="display: none;"></audio> 
+            		    </div>
+                            <div class="desc">This repository provides all the necessary tools to perform speech enhancement (denoising + dereverberation) with a SepFormer model, implemented with SpeechBrain, and pretrained on WHAMR! dataset with 8k sampling frequency, which is basically a version of WSJ0-Mix dataset with environmental noise and reverberation in 8k. For a better experience we encourage you to learn more about SpeechBrain. The given model performance is 10.59 dB SI-SNR on the test set of WHAMR! dataset.
                             </div>
-                            <ol class="feature">
-                                <li>
-                                    <div class="icon"><i class="fa fa-check"></i></div>
-                                    <div class="text">参与系统的前台界面业务功能设计及实施工作，主要负责业务管理子系统的开发；使用 JEE 和APDM 管线数据模型进行 Web 服务端开发，设计后台服务与前台的数据交互；并参与系统的持续运维及完善工作，解决复杂的业务逻辑及工作流程问题。
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="icon"><i class="fa fa-check"></i></div>
-                                    <div class="text">开发工具：MyEclipse、ExtJs、Oracle、SVN。
-                                    </div>
-                                </li>
-                            </ol>
+			    <div class="enhanced-audio">
+				<div id="loadingText" style="display: none;">Loading...</div>
+                		<audio id="enhancedAudio" controls style="display: none;"></audio>
+            		    </div>
                         </div>
                         <div class="case-image" index="pipeline">
                             <div class="browser">
