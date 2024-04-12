@@ -17,7 +17,56 @@
         <link rel="stylesheet" href="css/swiper.min.css">
         <link rel="stylesheet" href="js/leaflet/leaflet.css" />
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+	<script type="module">
+		import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client@0.9.0/+esm";
+		async function speechFunction() {
+			const text = document.getElementById("textInput").value; // 获取文本输入
+			const audioInput2 = document.getElementById("audioInput2");
+			const selectedModel = document.getElementById("modelSelect").value; // 获取所选模型
+			const exampleAudio = null
 
+			const example = audioInput2.files[0];
+        		if (example) {
+            			exampleAudio = new Blob([example], { type: example.type });
+        		}
+
+			try {
+            		    // 使用 Gradio client 进行预测
+            		    const app = await client("https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/?");
+            		    const result = await app.predict(0, [
+                		text, // 输入文本内容
+                		"科比", // 选择的说话者
+                		0.4, // SDP Ratio
+                		0.1, // Noise
+                		0.1, // Noise_W
+                		2, // Length
+                		"EN", // 语言
+                		exampleAudio, // 音频 prompt
+                		"Happy", // 文本 prompt
+                		"Text prompt", // Prompt Mode
+                		"", // 辅助文本
+                		0, // 权重
+            		]);
+			
+			console.log(result)
+
+			const outputAudio = result.data[1]; // 假设音频信息在返回信息的第二个位置
+           		const audioUrl2 = "https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/file="+outputAudio.name; // 假设音频信息的 data 字段是音频文件的 URL
+            		const audio2 = document.getElementById("audio2");
+            		audio2.src = audioUrl2;
+			audio2.style.display = "block";
+       		 } catch (error) {
+            		console.error('Error fetching audio or running model:', error);
+       		 }
+		};
+
+		window.onload = function() {
+        	    // 获取 Speech 按钮元素
+        	    const speechButton = document.getElementById("Speech");
+        	    // 将点击事件与函数绑定
+        	    speechButton.onclick = speechFunction;
+   		 };
+    	</script>
     </head>
     <body data-spy="scroll" style="margin-top: -50px;">
         <!--[if lte IE 9]>
@@ -74,7 +123,7 @@
                 <div class="industry-content inverse" id="pipeline">
                     <div class="case-wrapper">
                         <div class="case-text">
-                            <div class="title"><img src="img/project/case1.png" class="case-icon">sepformer-whamr-enhancement </div>
+                            <div class="title"><img src="img/project/case1.png" class="case-icon">Audio Enhancement </div>
 			    <div class="input-audio">
     				<label for="audioInput1">Upload Audio</label>
     				<input type="file" accept="audio/*" id="audioInput1" style="display: none;">
@@ -112,19 +161,26 @@
                 <div class="industry-content" id="pipelinezy">
                     <div class="case-wrapper">
                         <div class="case-text">
-                            <div class="title"><img src="img/project/case3.png" class="case-icon">中亚管道管道完整性管理系统</div>
-                            <div class="desc">该项目是中亚管道公司以石油管道业务为基础，开发的升级版的中英俄多语言管道完整性系统，适合 HTML5 浏览器，集成 GIS 系统进行空间数据管理，运用 SpringMVC、ExtJs6、JavaScript、jQuery、ArcGIS API for JavaScrip、HTML、CSS、Apache CXF 等技术。</div>
-                            <ol class="feature">
-                                <li>
-                                    <div class="icon"><i class="fa fa-check"></i></div>
-                                    <div class="text">主要负责前端界面，开发适合 HTML5 浏览器及现代风格的系统界面，保证良好的浏览器兼容性；负责系统 GIS 模块的核心开发，包括地图浏览、查询、分析等基础功能；使用 SpringMVC 开发后台数据服务与前台交互，并解决系统多语言版本的问题。</div>
-                                </li>
-                                <li>
-                                    <div class="icon"><i class="fa fa-check"></i></div>
-                                    <div class="text">开发工具：MyEclipse、ExtJs6、Oracle、SVN。
-                                    </div>
-                                </li>
-                            </ol>
+                            <div class="title"><img src="img/project/case3.png" class="case-icon">Text-to-Speech</div>
+			    <div class="input-text">
+				<label for="textInput">Enter Text:</label>
+        			<textarea id="textInput" rows="4" cols="50"></textarea>
+            		    </div>
+			    <div class="model-selection">
+        			<label for="modelSelect">Select Model:</label>
+        			<select id="modelSelect">
+            			<option value=""科比,科比"">Kobe Bryant</option>
+            			<option value="model2">Model 2</option>
+            			<option value="model3">Model 3</option>
+        			</select>
+    			    </div>
+			    <div class="input-audio">
+    				<button id="Speech" type="button" >Speech</button>
+				<label for="audioInput2">Upload Audio</label>
+				<input type="file" accept="audio/*" id="audioInput2" style="display: none;">
+				<audio id="audio2" controls style="display: none;"></audio>
+            		    </div>
+                            <div class="desc">Bert-VITS2 model introduces a randomly continuous duration predictor trained through adversarial learning, which improves normalization flow by better modeling features of multiple speakers using Transformer blocks and speaker-conditioned text encoders. The proposed approach enhances quality and efficiency. Additionally, experiments with normalized text inputs reduce reliance on phoneme conversion. Therefore, these methods are closer to fully end-to-end single-stage approaches.</div>
                         </div>
                         <div class="case-image" index="pipelinezy">
                             <div class="browser">
@@ -317,8 +373,7 @@
         <script src="js/swiper.min.js"></script>
         <script src="js/leaflet/leaflet.js"></script>
 	<script src="js/audio.js"></script>
-        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=oMvdENGYZmsGBZlo8MFffrQb"></script>
-
+        
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
         <script>
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;

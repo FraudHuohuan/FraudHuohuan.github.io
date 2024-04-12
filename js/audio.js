@@ -6,11 +6,13 @@ let stream;
 const recordButton = document.getElementById("recordButton");
 const Recognize = document.getElementById("Recognize");
 const Enhance = document.getElementById("Enhance");
+const Speech = document.getElementById("Speech");
 const audioInput = document.getElementById("audioInput");
 const audio = document.getElementById("audio");
 const recordButton1 = document.getElementById("recordButton1");
 const audioInput1 = document.getElementById("audioInput1");
 const audio1 = document.getElementById("audio1");
+const audio2 = document.getElementById("audio2");
 
 let isRecording = false;
 
@@ -73,7 +75,7 @@ recordButton1.addEventListener('click', async () => {
             recordButton1.textContent = 'Stop Recording';
             audioInput1.disabled = true;
             isRecording = true;
-            recordTime1.style.display = 'false'; 
+            recordTime1.style.display = 'block'; 
             startTime = Date.now();
             elapsedTimeInterval = setInterval(updateRecordTime1, 1000); // 每秒更新一次录音时间
         } else {
@@ -307,3 +309,5 @@ async function trans_Enhance(data) {
 }
 }
 
+
+/*TTS*/
