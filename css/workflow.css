@@ -180,13 +180,17 @@ body {
   display: none;
 }
 
+
 /* 在小屏幕上（移动设备）显示手机端内容 */
 @media (max-width: 768px) {
     .mobile-container {
-    display: block;
-    padding: 10px; /* 添加内边距 */
-    background-color: #f0f0f0; /* 设置背景色 */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px; /* 添加内边距 */
+  background-color: #f0f0f0; /* 设置背景色 */
+  height: 100vh; /* 使用视口高度作为高度值 */
+}
 
   .desktop-container {
     display: none;
@@ -198,51 +202,71 @@ body {
     background-color: #fff; /* 设置背景色 */
     border-radius: 5px; /* 添加圆角 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
-  }
+    display: flex; /* 使用 Flexbox 布局 */
+    flex-direction: column; /* 垂直排列子元素 */
+}
 
-  .name-list-panel {
-    border: 1px solid #ccc; /* 添加边框 */
-    border-radius: 5px; /* 添加圆角 */
-    padding: 10px; /* 添加内边距 */
-    margin-bottom: 10px; /* 添加下边距 */
-    background-color: #fff; /* 设置背景色 */
-  }
-
-  .collapsible-title {
-    margin: 0;
+/* 名字列表面板 */
+.name-list-panel {
+    border: 1px solid #ccc;
+    border-radius: 5px;
     padding: 10px;
-    cursor: pointer;
-    font-size: 16px; /* 设置字体大小 */
-  }
+}
+.collapsible-list {
+  display: flex; /* 使用 Flexbox 布局 */
+}
 
-  .chat-area {
-    border: 1px solid #ccc; /* 添加边框 */
-    border-radius: 5px; /* 添加圆角 */
-    padding: 10px; /* 添加内边距 */
-    margin-bottom: 10px; /* 添加下边距 */
-    background-color: #fff; /* 设置背景色 */
-  }
+.collapsible-item {
+  flex: 1; /* 将每个项目设置为平均填充空间 */
+  position: relative; /* 使得伪元素相对于该元素定位 */
+}
 
-  .chat-input {
-    display: flex;
-    align-items: center;
-    background-color: #fff; /* 设置背景色 */
-    border-radius: 5px; /* 添加圆角 */
-    padding: 10px; /* 添加内边距 */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
-  }
+.collapsible-item::after {
+  content: ""; /* 添加内容 */
+  position: absolute; /* 绝对定位 */
+  top: 0;
+  right: -5px; /* 调整竖线位置 */
+  width: 1px; /* 设置竖线宽度 */
+  height: 100%; /* 设置竖线高度 */
+  background-color: #ccc; /* 设置竖线颜色 */
+}
 
-  textarea {
-    flex: 1; /* 占据剩余空间 */
-    height: 40px; /* 设置高度 */
-    padding: 10px; /* 添加内边距 */
-    border: 1px solid #ccc; /* 添加边框 */
-    border-radius: 5px; /* 添加圆角 */
-    resize: none; /* 禁止调整大小 */
-    font-size: 14px; /* 设置字体大小 */
-  }
+/* 最后一个项目不添加竖线 */
+.collapsible-item:last-child::after {
+  display: none; /* 隐藏竖线 */
+}
 
-  button {
+
+.chat-area {
+  flex: 1; /* 填充剩余空间 */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  height: 400px; /* 增加聊天区域的高度 */
+  overflow-y: auto; /* 如果内容超出高度，添加垂直滚动条 */
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  background-color: #fff; /* 设置背景色 */
+  border-radius: 5px; /* 添加圆角 */
+  padding: 10px; /* 添加内边距 */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  height: 60px; /* 缩小输入区域的高度 */
+}
+
+textarea {
+  flex: 1; /* 占据剩余空间 */
+  height: auto; /* 使用默认高度 */
+  padding: 10px; /* 添加内边距 */
+  border: 1px solid #ccc; /* 添加边框 */
+  border-radius: 5px; /* 添加圆角 */
+  resize: none; /* 禁止调整大小 */
+  font-size: 14px; /* 设置字体大小 */
+}
+
+  .chat-input button {
     height: 40px; /* 设置高度 */
     padding: 0 20px; /* 设置内边距 */
     margin-left: 10px; /* 添加左边距 */
@@ -255,7 +279,7 @@ body {
     font-size: 14px; /* 设置字体大小 */
   }
 
-  button:hover {
+  .chat-input button:hover {
     background-color: #0056b3; /* 悬停时改变背景颜色 */
   }
 }
