@@ -6,64 +6,138 @@
   <title>Chat Robot</title>
   <link rel="stylesheet" href="css/workflow.css">
   <script type="module"> 
-    import OpenAI from "https://cdn.jsdelivr.net/npm/openai@4.33.0/+esm"
     import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client@0.9.0/+esm";
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const sendButton = document.getElementById('sendButton');
-        const textInput = document.getElementById('textInput');
-        const sentMessages = document.getElementById('sentMessages');
+   document.addEventListener("DOMContentLoaded", function() {
+    // 获取所有可折叠项
+    var collapsibleItems = document.querySelectorAll(".collapsible-item");
+    const sendButton = document.getElementById('sendButton');
+    const textInput = document.getElementById('textInput');
+    const sentMessages = document.getElementById('sentMessages');
+    var name = "Kobe Bryant";
 
-        // 添加发送按钮的点击事件监听器
-        sendButton.addEventListener('click', sendMessage);
+    // 遍历每个可折叠项，并为其添加点击事件处理程序
+    collapsibleItems.forEach(function(item) {
+        item.addEventListener("click", async function() {
+            // 移除所有项的 selected 类
+            collapsibleItems.forEach(function(item) {
+                item.classList.remove("selected");
+            });
+            // 为当前点击的项添加 selected 类
+            this.classList.add("selected");
 
-        // 发送消息函数
-        async function sendMessage() {
-            const messageText = textInput.value.trim();
-            if (messageText !== '') {
-                // 创建消息元素并添加到页面
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message', 'sent');
-                messageElement.textContent = messageText;
-                sentMessages.appendChild(messageElement);
-                
-                // 清空输入框
-                textInput.value = '';
-                speechFunction(messageText);
+            // 获取当前选定的内容并发送到 OpenAI
+            name = this.querySelector('.collapsible-title').textContent;
+        });
+    });
+
+    // 添加发送按钮的点击事件监听器
+    sendButton.addEventListener('click', sendMessage);
+
+    // 发送消息函数
+    async function sendMessage() {
+        const messageText = textInput.value.trim();
+        if (messageText !== '') {
+            // 创建消息元素并添加到页面
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'sent');
+            messageElement.textContent = messageText;
+            sentMessages.appendChild(messageElement);
+
+            // 清空输入框
+            textInput.value = '';
+            try {
+                const reply = await sendOpenai(messageText);
+                await speechFunction(reply);
+            } catch (error) {
+                console.error('Error sending data to OpenAI:', error);
             }
         }
-	async function speechFunction(data) {
-		
-		try {
-            		    // 使用 Gradio client 进行预测
-            		    const app = await client("https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/?");
-            		    const result = await app.predict(0, [
-                		"What can I say?", // 输入文本内容
-                		"科比", // 选择的说话者
-                		0.4, // SDP Ratio
-                		0.1, // Noise
-                		0.1, // Noise_W
-                		2, // Length
-                		"EN", // 语言
-                		null, // 音频 prompt
-                		"Happy", // 文本 prompt
-                		"Text prompt", // Prompt Mode
-                		"", // 辅助文本
-                		0, // 权重
-            		]);
-		const outputAudio = result.data[1]; // 假设音频信息在返回信息的第二个位置
-           	const audioUrl = "https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/file="+outputAudio.name; // 假设音频信息的 data 字段是音频文件的 URL
-		 // 将音频文件添加到聊天框的回复区域
-    		const audioElement = document.createElement('audio');
-    		audioElement.controls = true;
-    		audioElement.src =audioUrl;
-		audioElement.classList.add('right-aligned');
-    		sentMessages.appendChild(audioElement);
-		}catch (error) {
-            		console.error('Error fetching audio or running model:', error);
-       		 }
-	}
-    });
+    }
+
+    async function sendOpenai(data) {
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", "sk-NLbBJJB6ac9E536E4B0ET3BlBKFJ8896848b116047d1aEd2");
+
+            var raw = JSON.stringify({
+                "model": "gpt-3.5-turbo",
+                "messages": [{
+                        "role": "system",
+                        "content": "You are a helpful assistant."
+                    },
+                    {
+                        "role": "user",
+                        "content": data
+                    }
+                ]
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            const response = await fetch("https://cn2us02.opapi.win/v1/chat/completions", requestOptions);
+            const result = await response.json();
+            const content = result.choices[0].message.content;
+	    const messageElement = document.createElement('div');
+	    messageElement.classList.add('message', 'received');
+	    messageElement.textContent = content; // 使用从 OpenAI 返回的文本内容
+	    sentMessages.appendChild(messageElement);
+            return content; // 返回 content 字段的值
+        } catch (error) {
+            console.error('Error fetching audio or running model:', error);
+            throw error;
+        }
+    }
+
+    async function speechFunction(sentence) {
+        try {
+            // 使用 Gradio client 进行预测
+            const app = await client("https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/?");
+            const result = await app.predict(0, [
+                sentence, // 输入文本内容
+                "科比", // 选择的说话者
+                0.4, // SDP Ratio
+                0.1, // Noise
+                0.1, // Noise_W
+                2, // Length
+                "EN", // 语言
+                null, // 音频 prompt
+                "Happy", // 文本 prompt
+                "Text prompt", // Prompt Mode
+                "", // 辅助文本
+                0, // 权重
+            ]);
+            const outputAudio = result.data[1]; // 假设音频信息在返回信息的第二个位置
+            const audioUrl = "https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/file=" + outputAudio.name; // 假设音频信息的 data 字段是音频文件的 URL
+            // 将音频文件添加到聊天框的回复区域
+            const audioElement = document.createElement('audio');
+            audioElement.controls = true;
+            audioElement.src = audioUrl;
+            audioElement.classList.add('right-aligned');
+            sentMessages.appendChild(audioElement);
+	    // 创建包含音频元素的 div 元素，并添加样式
+            const audioContainer = document.createElement('div');
+            audioContainer.classList.add('message', 'received'); // 添加边框样式
+            audioContainer.appendChild(audioElement); // 将音频元素添加到 div 中
+
+	    const audioBox = document.createElement('div');
+	    audioBox.classList.add('audio-box'); // 添加定义的样式类
+        
+            audioBox.appendChild(audioElement);
+	    sentMessages.appendChild(audioBox);
+        } catch (error) {
+            console.error('Error fetching audio or running model:', error);
+        }
+    }
+});
+
 
   </script>
 </head>
