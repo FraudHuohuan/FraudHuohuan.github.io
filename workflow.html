@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <title>Chat Robot</title>
+  <link rel="stylesheet" href="css/workflow.css">
+  <script type="module"> 
+    import OpenAI from "https://cdn.jsdelivr.net/npm/openai@4.33.0/+esm"
+    import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client@0.9.0/+esm";
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const sendButton = document.getElementById('sendButton');
+        const textInput = document.getElementById('textInput');
+        const sentMessages = document.getElementById('sentMessages');
+
+        // 添加发送按钮的点击事件监听器
+        sendButton.addEventListener('click', sendMessage);
+
+        // 发送消息函数
+        async function sendMessage() {
+            const messageText = textInput.value.trim();
+            if (messageText !== '') {
+                // 创建消息元素并添加到页面
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'sent');
+                messageElement.textContent = messageText;
+                sentMessages.appendChild(messageElement);
+                
+                // 清空输入框
+                textInput.value = '';
+                speechFunction(messageText);
+            }
+        }
+	async function speechFunction(data) {
+		
+		try {
+            		    // 使用 Gradio client 进行预测
+            		    const app = await client("https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/?");
+            		    const result = await app.predict(0, [
+                		"What can I say?", // 输入文本内容
+                		"科比", // 选择的说话者
+                		0.4, // SDP Ratio
+                		0.1, // Noise
+                		0.1, // Noise_W
+                		2, // Length
+                		"EN", // 语言
+                		null, // 音频 prompt
+                		"Happy", // 文本 prompt
+                		"Text prompt", // Prompt Mode
+                		"", // 辅助文本
+                		0, // 权重
+            		]);
+		const outputAudio = result.data[1]; // 假设音频信息在返回信息的第二个位置
+           	const audioUrl = "https://xzjosh-kobe-bert-vits2-2-3.hf.space/--replicas/9fhp9/file="+outputAudio.name; // 假设音频信息的 data 字段是音频文件的 URL
+		 // 将音频文件添加到聊天框的回复区域
+    		const audioElement = document.createElement('audio');
+    		audioElement.controls = true;
+    		audioElement.src =audioUrl;
+		audioElement.classList.add('right-aligned');
+    		sentMessages.appendChild(audioElement);
+		}catch (error) {
+            		console.error('Error fetching audio or running model:', error);
+       		 }
+	}
+    });
+
+  </script>
+</head>
+<body>
+  <!-- 电脑端 -->
+  <div class="desktop-container">
+    <div class="blank-area" style="height: 80px"></div>
+    <div class="row">
+      <div class="col-offset2 col-sm8 col-md-offset2 col-md8">
+        <div class="container">
+          <!-- 名字列表 -->
+          <div class="name-list-container">
+            <div class="name-list-panel">
+              <div class="collapsible-list">
+		<div class="collapsible-item">
+  		    <div class="collapsible-header">
+    			<h2 class="collapsible-title">Kobe Bryant</h2>
+  		    </div>
+		</div>
+                <div class="collapsible-item">
+  		    <div class="collapsible-header">
+    			<h2 class="collapsible-title">Ding Zhen</h2>
+  		    </div>
+		</div>
+                <div class="collapsible-item">
+  		    <div class="collapsible-header">
+    			<h2 class="collapsible-title">Name</h2>
+  		    </div>
+		</div>
+              </div>
+            </div>
+          </div>
+          <!-- 内容区域 -->
+          <div class="content-area">
+  		<!-- 聊天区域 -->
+  		<div class="chat-area">
+    		    <!-- 左边聊天消息 -->
+            	    <div class="chat-messages sent" id="sentMessages">
+              	        <!-- 这里显示发送的聊天消息 -->
+            	    </div>
+            	    <!-- 右边聊天消息 -->
+            	    <div class="chat-messages received" id="receivedMessages">
+              		<!-- 这里显示接收的聊天消息 -->
+    		    </div>
+  		</div>
+		<!-- 聊天输入栏 -->
+    		<div class="chat-input">
+        	    <textarea id="textInput" placeholder="Type your message here..."></textarea>
+        	    <button id="sendButton">Send</button>
+        	    <button id="recordButton">Voice Input</button>
+    		</div>
+	     </div>
+        </div>
+      </div>
+    </div>
+  </div>
+	  <script src="js/workflow.js"></script>
+</body>
+</html>

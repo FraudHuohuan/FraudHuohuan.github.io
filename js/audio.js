@@ -50,7 +50,7 @@ recordButton.addEventListener('click', async () => {
             recordButton.textContent = 'Stop Recording';
             audioInput.disabled = true;
             isRecording = true;
-            recordTime.style.display = 'false'; 
+            recordTime.style.display = 'block'; 
             startTime = Date.now();
             elapsedTimeInterval = setInterval(updateRecordTime, 1000); // 每秒更新一次录音时间
         } else {
