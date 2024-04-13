@@ -75,7 +75,6 @@
       <div class="col-offset2 col-sm8 col-md-offset2 col-md8">
         <div class="container">
           <!-- 名字列表 -->
-          <div class="name-list-container">
 	    <button id="toggleNameListButton">Name</button>
             <div class="name-list-panel">
               <div class="collapsible-list">
@@ -94,7 +93,6 @@
     			<h2 class="collapsible-title">Messi</h2>
   		    </div>
 		</div>
-              </div>
             </div>
           </div>
           <!-- 内容区域 -->
@@ -121,6 +119,55 @@
       </div>
     </div>
   </div>
+
+
+  <!-- 手机端 -->
+<div class="mobile-container">
+  <div class="blank-area" style="height: 20px;"></div>
+  <div class="container">
+    <!-- 名字列表 -->
+      <button id="toggleNameListButton">Name</button>
+      <div class="name-list-panel">
+        <div class="collapsible-list">
+          <div class="collapsible-item">
+            <div class="collapsible-header">
+              <h2 class="collapsible-title">Kobe Bryant</h2>
+            </div>
+          </div>
+          <div class="collapsible-item">
+            <div class="collapsible-header">
+              <h2 class="collapsible-title">Ding Zhen</h2>
+            </div>
+          </div>
+          <div class="collapsible-item">
+            <div class="collapsible-header">
+              <h2 class="collapsible-title">Messi</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 内容区域 -->
+    <div class="content-area">
+      <!-- 聊天区域 -->
+      <div class="chat-area">
+        <!-- 左边聊天消息 -->
+        <div class="chat-messages sent" id="sentMessages">
+          <!-- 这里显示发送的聊天消息 -->
+        </div>
+        <!-- 右边聊天消息 -->
+        <div class="chat-messages received" id="receivedMessages">
+          <!-- 这里显示接收的聊天消息 -->
+        </div>
+      </div>
+      <!-- 聊天输入栏 -->
+      <div class="chat-input">
+        <textarea id="textInput" placeholder="Type your message here..."></textarea>
+        <button id="sendButton">Send</button>
+        <button id="recordButton">Voice Input</button>
+      </div>
+    </div>
+</div>
 	  <script src="js/workflow.js"></script>
 </body>
 </html>

@@ -175,54 +175,89 @@ body {
     margin-left: 10px; /* 调整右侧元素与其他内容之间的间距 */
 }
 
-/* 默认隐藏名字列表 */
-.name-list-panel {
+/* 默认隐藏手机端内容 */
+.mobile-container {
   display: none;
 }
 
-/* 在手机端调整按钮样式 */
+/* 在小屏幕上（移动设备）显示手机端内容 */
 @media (max-width: 768px) {
-  #toggleNameListButton {
+    .mobile-container {
     display: block;
-    width: 50px; /* 设置按钮宽度 */
-    height: 50px; /* 设置按钮高度 */
-    line-height: 50px; /* 垂直居中文本 */
-    background-color: #007bff; /* 设置背景颜色 */
-    color: #fff; /* 设置文字颜色 */
-    border: none; /* 移除边框 */
-    border-radius: 50%; /* 将按钮变为圆形 */
-    font-size: 16px; /* 设置字体大小 */
-    text-align: center; /* 水平居中文本 */
-    cursor: pointer; /* 添加指针样式 */
-    outline: none; /* 移除点击时的边框 */
-    transition: background-color 0.3s ease; /* 添加过渡效果 */
+    padding: 10px; /* 添加内边距 */
+    background-color: #f0f0f0; /* 设置背景色 */
   }
 
-  #toggleNameListButton:hover {
+  .desktop-container {
+    display: none;
+  }
+
+ .container {
+    width: 100%; /* 设置内容区域宽度为100% */
+    padding: 10px; /* 添加内边距 */
+    background-color: #fff; /* 设置背景色 */
+    border-radius: 5px; /* 添加圆角 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  }
+
+  .name-list-panel {
+    border: 1px solid #ccc; /* 添加边框 */
+    border-radius: 5px; /* 添加圆角 */
+    padding: 10px; /* 添加内边距 */
+    margin-bottom: 10px; /* 添加下边距 */
+    background-color: #fff; /* 设置背景色 */
+  }
+
+  .collapsible-title {
+    margin: 0;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px; /* 设置字体大小 */
+  }
+
+  .chat-area {
+    border: 1px solid #ccc; /* 添加边框 */
+    border-radius: 5px; /* 添加圆角 */
+    padding: 10px; /* 添加内边距 */
+    margin-bottom: 10px; /* 添加下边距 */
+    background-color: #fff; /* 设置背景色 */
+  }
+
+  .chat-input {
+    display: flex;
+    align-items: center;
+    background-color: #fff; /* 设置背景色 */
+    border-radius: 5px; /* 添加圆角 */
+    padding: 10px; /* 添加内边距 */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  }
+
+  textarea {
+    flex: 1; /* 占据剩余空间 */
+    height: 40px; /* 设置高度 */
+    padding: 10px; /* 添加内边距 */
+    border: 1px solid #ccc; /* 添加边框 */
+    border-radius: 5px; /* 添加圆角 */
+    resize: none; /* 禁止调整大小 */
+    font-size: 14px; /* 设置字体大小 */
+  }
+
+  button {
+    height: 40px; /* 设置高度 */
+    padding: 0 20px; /* 设置内边距 */
+    margin-left: 10px; /* 添加左边距 */
+    border: none; /* 移除边框 */
+    border-radius: 5px; /* 添加圆角 */
+    background-color: #007bff; /* 设置背景色 */
+    color: #fff; /* 设置文字颜色 */
+    cursor: pointer; /* 添加指针样式 */
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
+    font-size: 14px; /* 设置字体大小 */
+  }
+
+  button:hover {
     background-color: #0056b3; /* 悬停时改变背景颜色 */
   }
 }
 
-/* 在电脑端调整按钮样式 */
-@media (min-width: 769px) {
-  #toggleNameListButton {
-    display: block;
-    width: 50px; /* 设置按钮宽度 */
-    height: 50px; /* 设置按钮高度 */
-    line-height: 50px; /* 垂直居中文本 */
-    background-color: #007bff; /* 设置背景颜色 */
-    color: #fff; /* 设置文字颜色 */
-    border: none; /* 移除边框 */
-    border-radius: 50%; /* 将按钮变为圆形 */
-    font-size: 16px; /* 设置字体大小 */
-    text-align: center; /* 水平居中文本 */
-    cursor: pointer; /* 添加指针样式 */
-    outline: none; /* 移除点击时的边框 */
-    transition: background-color 0.3s ease; /* 添加过渡效果 */
-  }
-
-  #toggleNameListButton:hover {
-    background-color: #0056b3; /* 悬停时改变背景颜色 */
-  }
-}
 
