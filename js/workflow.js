@@ -150,3 +150,11 @@ async function trans_Recognize(data) {
 
 /*发送信息*/
 
+/*手机端*/
+// 添加一个点击事件监听器，切换名字列表的显示/隐藏状态
+document.getElementById('toggleNameListButton').addEventListener('click', function() {
+  const nameListPanel = document.querySelector('.name-list-panel');
+  nameListPanel.style.display = nameListPanel.style.display === 'none' ? 'block' : 'none';
+});
+
+
