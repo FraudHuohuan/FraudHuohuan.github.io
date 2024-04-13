@@ -192,7 +192,7 @@ body {
     display: none;
   }
 
- .container {
+.container {
     width: 100%; /* 设置内容区域宽度为100% */
     padding: 10px; /* 添加内边距 */
     background-color: #fff; /* 设置背景色 */
